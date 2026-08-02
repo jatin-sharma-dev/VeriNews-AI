@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VeriMail AI | The Threat Desk</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500;1,9..144,600&family=Public+Sans:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        serif: ['Fraunces', 'serif'],
+                        sans: ['"Public Sans"', 'sans-serif'],
+                        mono: ['"IBM Plex Mono"', 'monospace']
+                    },
+                    colors: {
+                        void: '#0A0F1C',
+                        ink: '#121A2C',
+                        mist: '#E7ECF6',
+                        teal: { DEFAULT: '#4FD1C5', dim: '#2A5F5A', light: '#8CE8DE' },
+                        verified: '#4FD1C5',
+                        flagged: '#FF6B5E',
+                        warn: '#F5B942'
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-void text-mist font-sans antialiased min-h-screen selection:bg-teal selection:text-void relative">
+
+    <div class="fixed inset-0 z-[-1] overflow-hidden pointer-events-none">
+        <div class="grid-field"></div>
+        <div class="grain-layer"></div>
+        <div class="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-teal/30 to-transparent"></div>
+    </div>
+
+    <!-- MASTHEAD -->
+    <header class="sticky top-0 z-50 backdrop-blur-xl bg-void/70 border-b border-teal/[0.12]">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="#" id="brandLogo" class="flex items-center space-x-3 group">
+                <div class="w-10 h-10 rounded-full bg-teal flex items-center justify-center group-hover:rotate-[-8deg] transition-transform duration-300">
+                    <i class="fa-solid fa-radar text-void text-base"></i>
+                </div>
+                <div class="leading-none">
+                    <span class="block text-xl font-serif font-semibold tracking-tight text-mist">
+                        VeriMail <span class="text-teal italic">AI</span>
+                    </span>
+                    <span class="block font-mono text-[9px] tracking-[0.25em] text-mist/40 mt-1">THREAT&nbsp;DESK</span>
+                </div>
+            </a>
+            <div class="hidden md:flex items-center space-x-2 font-mono text-[10px] tracking-[0.2em] text-mist/40">
+                <span id="liveDot" class="w-1.5 h-1.5 rounded-full bg-mist/30"></span>
+                <span id="liveLabel">CHECKING DESK STATUS&hellip;</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- LANDING VIEW -->
+    <main id="landingView" class="block">
+        <section class="relative max-w-7xl mx-auto px-6 pt-20 pb-14 flex flex-col items-center">
+            <div class="text-center max-w-4xl mx-auto space-y-8">
+                <div class="reveal reveal-1 flex items-center justify-center gap-4 font-mono text-[11px] tracking-[0.3em] text-teal/80">
+                    <span class="h-px w-8 bg-teal/40"></span>
+                    <span>NEURAL-NETWORK PHISHING DETECTION &mdash; INSTANT RISK SCORE</span>
+                    <span class="h-px w-8 bg-teal/40"></span>
+                </div>
+
+                <h1 class="reveal reveal-2 text-5xl lg:text-7xl font-serif font-semibold tracking-tight text-mist leading-[1.1]">
+                    Don't just open the email.<br>
+                    <span class="relative inline-block italic text-teal font-medium">
+                        Scan it.
+                        <svg class="underline-mark" viewBox="0 0 220 20" preserveAspectRatio="none" aria-hidden="true">
+                            <path d="M3,12 C40,4 90,17 130,9 C160,3 190,13 217,7" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+                        </svg>
+                    </span>
+                </h1>
+
+                <p class="reveal reveal-3 text-lg lg:text-xl text-mist/55 max-w-2xl mx-auto leading-relaxed font-medium">
+                    Paste a suspicious email in full. The desk checks urgency language, credential bait,
+                    and sender trust patterns to give you an honest risk score in seconds &mdash; with
+                    the exact reasons behind it.
+                </p>
+
+                <div class="reveal reveal-4 pt-4 flex flex-col items-center gap-3">
+                    <button id="heroScanBtn" class="px-9 py-4 bg-teal text-void hover:bg-teal-light font-mono font-semibold rounded-full text-sm tracking-[0.15em] uppercase transition-all duration-300 flex items-center gap-3">
+                        <i class="fa-solid fa-stamp"></i>
+                        Scan an email
+                    </button>
+                    <span class="font-mono text-[10px] tracking-[0.2em] text-mist/35">NO SIGN-UP REQUIRED &middot; RUNS LOCALLY</span>
+                </div>
+            </div>
+
+            <!-- STATS ROW -->
+            <div class="w-full mt-20 grid grid-cols-2 md:grid-cols-4 gap-px bg-teal/[0.1] border border-teal/[0.1] rounded-2xl overflow-hidden reveal reveal-4">
+                <div class="bg-ink/40 px-6 py-7 text-center">
+                    <div class="font-mono text-2xl font-bold text-teal">82,485</div>
+                    <div class="font-mono text-[10px] text-mist/40 mt-2 tracking-[0.1em]">EMAILS IN TRAINING SET</div>
+                </div>
+                <div class="bg-ink/40 px-6 py-7 text-center">
+                    <div class="font-mono text-2xl font-bold text-teal">97.8%</div>
+                    <div class="font-mono text-[10px] text-mist/40 mt-2 tracking-[0.1em]">F1 SCORE (NEURAL NET)</div>
+                </div>
+                <div class="bg-ink/40 px-6 py-7 text-center">
+                    <div class="font-mono text-2xl font-bold text-teal">9</div>
+                    <div class="font-mono text-[10px] text-mist/40 mt-2 tracking-[0.1em]">ENGINEERED SIGNALS</div>
+                </div>
+                <div class="bg-ink/40 px-6 py-7 text-center">
+                    <div class="font-mono text-2xl font-bold text-teal">4</div>
+                    <div class="font-mono text-[10px] text-mist/40 mt-2 tracking-[0.1em]">MODELS COMPARED</div>
+                </div>
+            </div>
+
+            <!-- 6-CARD FEATURE GRID -->
+            <div class="w-full mt-20 pt-10 border-t border-teal/[0.12]">
+                <p class="reveal reveal-4 text-center font-mono text-[11px] tracking-[0.3em] text-mist/35 mb-10">HOW THE DESK PROTECTS YOU</p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="p-6 rounded-2xl bg-white/[0.02] border border-teal/[0.1]">
+                        <div class="w-10 h-10 rounded-full border border-teal/30 flex items-center justify-center mb-4">
+                            <i class="fa-solid fa-bolt text-teal"></i>
+                        </div>
+                        <h3 class="text-lg font-serif font-semibold text-mist mb-2">Urgency Language Scan</h3>
+                        <p class="text-mist/50 text-sm leading-relaxed">Flags "act now," "account suspended," and other pressure tactics built to short-circuit careful reading.</p>
+                    </div>
+
+                    <div class="p-6 rounded-2xl bg-white/[0.02] border border-teal/[0.1]">
+                        <div class="w-10 h-10 rounded-full border border-teal/30 flex items-center justify-center mb-4">
+                            <i class="fa-solid fa-key text-teal"></i>
+                        </div>
+                        <h3 class="text-lg font-serif font-semibold text-mist mb-2">Credential Bait Detection</h3>
+                        <p class="text-mist/50 text-sm leading-relaxed">Catches requests for passwords, account verification, or payment details hidden in ordinary-looking text.</p>
+                    </div>
+
+                    <div class="p-6 rounded-2xl bg-white/[0.02] border border-teal/[0.1]">
+                        <div class="w-10 h-10 rounded-full border border-teal/30 flex items-center justify-center mb-4">
+                            <i class="fa-solid fa-at text-teal"></i>
+                        </div>
+                        <h3 class="text-lg font-serif font-semibold text-mist mb-2">Sender Domain Check</h3>
+                        <p class="text-mist/50 text-sm leading-relaxed">Flags free-webmail senders and high-risk TLDs commonly used to disguise phishing origins.</p>
+                    </div>
+
+                    <div class="p-6 rounded-2xl bg-white/[0.02] border border-teal/[0.1]">
+                        <div class="w-10 h-10 rounded-full border border-teal/30 flex items-center justify-center mb-4">
+                            <i class="fa-solid fa-gauge-high text-teal"></i>
+                        </div>
+                        <h3 class="text-lg font-serif font-semibold text-mist mb-2">Clear Risk Score</h3>
+                        <p class="text-mist/50 text-sm leading-relaxed">Combines every signal into one transparent 0&ndash;100 score &mdash; no black box.</p>
+                    </div>
+
+                    <div class="p-6 rounded-2xl bg-white/[0.02] border border-teal/[0.1]">
+                        <div class="w-10 h-10 rounded-full border border-teal/30 flex items-center justify-center mb-4">
+                            <i class="fa-solid fa-list-check text-teal"></i>
+                        </div>
+                        <h3 class="text-lg font-serif font-semibold text-mist mb-2">Pattern-by-Pattern Breakdown</h3>
+                        <p class="text-mist/50 text-sm leading-relaxed">Every flag is named plainly &mdash; you see exactly what tripped the score, not just the number.</p>
+                    </div>
+
+                    <div class="p-6 rounded-2xl bg-white/[0.02] border border-teal/[0.1]">
+                        <div class="w-10 h-10 rounded-full border border-teal/30 flex items-center justify-center mb-4">
+                            <i class="fa-solid fa-lock text-teal"></i>
+                        </div>
+                        <h3 class="text-lg font-serif font-semibold text-mist mb-2">Runs Locally</h3>
+                        <p class="text-mist/50 text-sm leading-relaxed">Your Flask backend does the scanning on your machine. Nothing you paste ever leaves it.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FINAL CTA -->
+            <div class="w-full mt-20 pt-16 pb-6 text-center border-t border-teal/[0.12]">
+                <h2 class="text-3xl font-serif font-semibold text-mist mb-3">Got a suspicious email sitting in your inbox?</h2>
+                <p class="text-mist/50 mb-8">Run it through the desk and see exactly what it's hiding.</p>
+                <button id="finalCtaBtn" class="px-9 py-4 bg-teal text-void hover:bg-teal-light font-mono font-semibold rounded-full text-sm tracking-[0.15em] uppercase transition-all duration-300 inline-flex items-center gap-3">
+                    <i class="fa-solid fa-stamp"></i>
+                    Open the scanner
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <!-- DASHBOARD VIEW -->
+    <main id="dashboardView" class="hidden max-w-7xl mx-auto px-6 py-14">
+        <div class="mb-10">
+            <h1 class="text-3xl font-serif font-semibold text-mist">The scanning desk</h1>
+            <p class="font-mono text-xs text-mist/40 mt-2 tracking-[0.05em]">paste an email below to run a live risk assessment</p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+
+            <!-- INPUT PANEL -->
+            <div class="bg-ink/40 border border-teal/[0.12] rounded-3xl p-7">
+                <label class="block font-mono text-[10px] uppercase tracking-[0.2em] text-mist/40 mb-2">Sender address</label>
+                <input id="senderInput" type="text" placeholder="e.g. support@your-bank.com"
+                    class="w-full bg-void border border-teal/[0.15] rounded-xl px-4 py-3 text-sm text-mist placeholder:text-mist/25 focus:outline-none focus:border-teal/50 transition-colors mb-5">
+
+                <label class="block font-mono text-[10px] uppercase tracking-[0.2em] text-mist/40 mb-2">Subject line</label>
+                <input id="subjectInput" type="text" placeholder="e.g. Your account needs attention"
+                    class="w-full bg-void border border-teal/[0.15] rounded-xl px-4 py-3 text-sm text-mist placeholder:text-mist/25 focus:outline-none focus:border-teal/50 transition-colors mb-5">
+
+                <label class="block font-mono text-[10px] uppercase tracking-[0.2em] text-mist/40 mb-2">Message body</label>
+                <textarea id="bodyInput" rows="8" placeholder="Paste the full email text here&hellip;"
+                    class="w-full bg-void border border-teal/[0.15] rounded-xl px-4 py-3 text-sm text-mist placeholder:text-mist/25 focus:outline-none focus:border-teal/50 transition-colors resize-y mb-5"></textarea>
+
+                <div class="flex gap-3">
+                    <button id="scanBtn" class="flex-1 px-6 py-3.5 bg-teal text-void hover:bg-teal-light font-mono font-semibold rounded-xl text-sm tracking-[0.1em] uppercase transition-all duration-300 flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-stamp text-base"></i> <span class="font-mono">Run scan</span>
+                    </button>
+                    <button id="resetBtn" class="px-5 py-3.5 border border-teal/[0.2] text-mist/60 hover:text-mist hover:border-teal/40 rounded-xl text-sm transition-colors">
+                        <i class="fa-solid fa-rotate-left"></i>
+                    </button>
+                </div>
+
+                <div class="flex gap-2 mt-3">
+                    <button id="sampleSuspiciousBtn" class="flex-1 text-[11px] font-mono px-3 py-2 rounded-lg border border-flagged/[0.25] text-flagged/70 hover:text-flagged hover:border-flagged/50 transition-colors">
+                        Load suspicious sample
+                    </button>
+                    <button id="sampleLegitBtn" class="flex-1 text-[11px] font-mono px-3 py-2 rounded-lg border border-verified/[0.25] text-verified/70 hover:text-verified hover:border-verified/50 transition-colors">
+                        Load legitimate sample
+                    </button>
+                </div>
+            </div>
+
+            <!-- RESULT PANEL -->
+            <div class="bg-ink/40 border border-teal/[0.12] rounded-3xl p-7 min-h-[480px] flex flex-col">
+
+                <div id="emptyState" class="m-auto text-center max-w-[220px]">
+                    <div class="w-16 h-16 rounded-full border border-dashed border-mist/20 flex items-center justify-center mx-auto mb-4">
+                        <i class="fa-solid fa-magnifying-glass text-mist/25 text-xl"></i>
+                    </div>
+                    <p class="font-mono text-xs text-mist/35">Results appear here once you run a scan.</p>
+                </div>
+
+                <div id="resultContainer" class="hidden flex-1 flex flex-col">
+                    <div class="flex flex-col items-center pb-2">
+                        <div id="scoreCircle" class="stamp-wrap text-verified">
+                            <div class="stamp-center">
+                                <span id="riskScore" class="stamp-score">0</span>
+                            </div>
+                        </div>
+                        <span class="font-mono text-[10px] text-mist/40 tracking-[0.1em] uppercase mt-1">Risk score / 100</span>
+                        <span id="verdictStatus" class="mt-6 font-mono px-5 py-2 rounded-full text-[11px] font-bold uppercase tracking-[0.2em] border bg-verified/10 text-verified border-verified/30">Awaiting scan</span>
+                    </div>
+
+                    <p id="metaStats" class="text-center font-mono text-[11px] text-mist/35 mt-5"></p>
+
+                    <div class="grid grid-cols-2 gap-3 mt-6">
+                        <div class="bg-white/[0.02] border border-teal/[0.1] rounded-xl px-4 py-3">
+                            <div class="font-mono text-[9px] uppercase tracking-[0.15em] text-mist/35 mb-1">Model confidence</div>
+                            <div id="resConfidence" class="font-mono text-lg font-bold text-mist">&mdash;</div>
+                        </div>
+                        <div class="bg-white/[0.02] border border-teal/[0.1] rounded-xl px-4 py-3">
+                            <div class="font-mono text-[9px] uppercase tracking-[0.15em] text-mist/35 mb-1">Sender domain</div>
+                            <div id="resDomain" class="font-mono text-xs font-semibold text-mist break-all">&mdash;</div>
+                        </div>
+                    </div>
+
+                    <div class="mt-6">
+                        <p class="font-mono text-[10px] uppercase tracking-[0.2em] text-mist/35 mb-3">Field notes</p>
+                        <div id="explanationList" class="space-y-2"></div>
+                    </div>
+
+                    <div class="mt-6">
+                        <p class="font-mono text-[10px] uppercase tracking-[0.2em] text-mist/35 mb-3">Flagged patterns</p>
+                        <div id="flaggedList" class="space-y-2"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="text-center py-10 font-mono text-[10px] text-mist/25 tracking-[0.05em] border-t border-teal/[0.08]">
+        VeriMail AI &mdash; Neural Network classifier trained on 82,485 emails &middot; local scan, nothing leaves your machine
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
